@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-	int choix,loop;
+	int choix,loop=1;
 	while (loop==1)
 	{
 		printf ("\n--------------- MENU ---------------\n");
@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 		//printf("6 - affichier un histogramme des performance :\n ");
 		printf("selectionnez un chiffre entre 0 et 3:");
 		scanf("%d",&choix);
-			//if ((choix >= 0) && choix <= 9)
+			if ((choix >= 0) && choix <= 9)
 			{
 			switch(choix)
 			{
@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 				default:break;
 			};
 		}
-		//else
+		else
 		{
 			printf("Vous avez mal fait votre choix !!");
 		}
