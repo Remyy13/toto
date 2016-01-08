@@ -5,6 +5,7 @@ int main(int argc, char **argv)
 	int choix,loop=1;
 	while (loop==1)
 	{
+		printf("toto1")
 		printf ("\n--------------- MENU ---------------\n");
 		printf("Veuillez choisir une acton :\n");
 		printf("1 - Quitter le programme : \n");
