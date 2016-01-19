@@ -1,17 +1,60 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#define TAILLE 20
+//void Init_matrice(int matrice[][TAILLE_MATRICE],int TAILLE_MATRICE);
+//int RandomNumber(int,int);
+
+
+ 
+// Selection d'un nombre au hasard entre Min et Max.
+ 
+int ReturnRandomNumber (int Min, int Max)
+{
+    int Result;
+    Result = ((rand() % (int)(((Max) + 1) - (Min))) + (Min));
+    return Result;
+}
+ 
+ 
+ 
+// Initialisation au hasard du damier
+ 
+void init_tab(int damier[][TAILLE],int taille)
+{
+     
+// cellule vivante = 1
+// cellule morte = 0
+     
+    srand(time(NULL));
+     
+    for (int i=0; i<taille; i++)
+    {
+        for (int j=0; j<taille; j++)
+        {
+            damier[i][j] = ReturnRandomNumber(0,1);
+            printf("%d",damier[i][j]);
+		}
+		printf("\n");
+     }
+}
+
 
 int main(int argc, char **argv)
 {
 	int choix,loop=1;
+    int damier[TAILLE][TAILLE];
+     
+
 	while (loop==1)
 	{
-		printf("toto")
+		printf("toto");
 		printf ("\n--------------- MENU ---------------\n");
 		printf("Veuillez choisir une acton :\n");
 		printf("1 - Quitter le programme : \n");
-		printf("2 -  Sauvegarder l'automate dans un fichier': \n");
+		printf("2 -  Initialiser le jeu': \n");
 		printf("3 -  Charger l'automate depuis un fichier: \n");
-		printf("4 -  Creer et/ou modifier les cellule de l'automate'\n");
+		printf("4 -  Creer et/ou mo,difier les cellule de l'automate'\n");
 		printf("5 - Parametrer le recadrage de l'affichage (x0, h, y0, v) :\n");
 		printf("6 - calculer l'automate jusqu'a un temps (t) donne sans affichage:\n");
 		printf("7 - Afficher l'automate au temps (t) courant\n");
@@ -23,7 +66,7 @@ int main(int argc, char **argv)
 			switch(choix)
 			{
 				case 1 : printf ("------Vous avez quitte le programme !! ------ \n");loop =0;break;
-				case 2 : break;
+				case 2 : init_tab(damier, TAILLE);;break;
 				case 3 : printf("Quel jour recherchez vous ? ");break;
 				case 4 : printf("Depuis quel jour voulez vous calculez le nombre de mouvement ? ");break;
 				case 5 : printf("+++ Fonction en cours de developement +++ \n");break;
