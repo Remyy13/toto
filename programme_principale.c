@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#define TAILLE 20
+#define TAILLE_MATRICE 20
 //void Init_matrice(int matrice[][TAILLE_MATRICE],int TAILLE_MATRICE);
 //int RandomNumber(int,int);
 
@@ -20,7 +20,7 @@ int ReturnRandomNumber (int Min, int Max)
  
 // Initialisation au hasard du damier
  
-void init_tab(int damier[][TAILLE],int taille)
+void init_tab(int fenetre[][TAILLE_MATRICE],int taille)
 {
      
 // cellule vivante = 1
@@ -32,8 +32,8 @@ void init_tab(int damier[][TAILLE],int taille)
     {
         for (int j=0; j<taille; j++)
         {
-            damier[i][j] = ReturnRandomNumber(0,1);
-            printf("%d",damier[i][j]);
+            fenetre[i][j] = ReturnRandomNumber(0,1);
+            printf("%d",fenetre[i][j]);
 		}
 		printf("\n");
      }
@@ -43,7 +43,7 @@ void init_tab(int damier[][TAILLE],int taille)
 int main(int argc, char **argv)
 {
 	int choix,loop=1;
-    int damier[TAILLE][TAILLE];
+    int fenetre[TAILLE_MATRICE][TAILLE_MATRICE];
      
 
 	while (loop==1)
@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 			switch(choix)
 			{
 				case 1 : printf ("------Vous avez quitte le programme !! ------ \n");loop =0;break;
-				case 2 : init_tab(damier, TAILLE);;break;
+				case 2 : init_tab(fenetre, TAILLE_MATRICE);;break;
 				case 3 : printf("Quel jour recherchez vous ? ");break;
 				case 4 : printf("Depuis quel jour voulez vous calculez le nombre de mouvement ? ");break;
 				case 5 : printf("+++ Fonction en cours de developement +++ \n");break;
