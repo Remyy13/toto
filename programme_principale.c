@@ -49,7 +49,7 @@ void Affichage_matrice(int tableau[][TAILLE_MATRICE], int taille)
         {
             if (tableau[i][j] == 0)
                 printf(COLOR_GREEN "1  " COLOR_RESET);
-            else printf(COLOR_RED "0  " COLOR_RESET);
+            else printf(COLOR_RED "#  " COLOR_RESET);
         }
          
         printf("\n");
