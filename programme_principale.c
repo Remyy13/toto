@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#define COLOR_RED     "\x1b[31m"
+#define COLOR_GREEN   "\x1b[32m"
+#define COLOR_RESET   "\x1b[0m"
 #define TAILLE_MATRICE 20
 //void Init_matrice(int matrice[][TAILLE_MATRICE],int TAILLE_MATRICE);
 //int RandomNumber(int,int);
@@ -33,12 +36,25 @@ void init_tab(int fenetre[][TAILLE_MATRICE],int taille)
         for (int j=0; j<taille; j++)
         {
             fenetre[i][j] = ReturnRandomNumber(0,1);
-            printf("%d",fenetre[i][j]);
 		}
-		printf("\n");
      }
 }
 
+ 
+void Affichage_matrice(int tableau[][TAILLE_MATRICE], int taille)
+{
+    for (int i=0; i<TAILLE_MATRICE; i++)
+    {
+        for (int j=0; j<TAILLE_MATRICE; j++)
+        {
+            if (tableau[i][j] == 0)
+                printf(COLOR_GREEN "1  " COLOR_RESET);
+            else printf(COLOR_RED "0  " COLOR_RESET);
+        }
+         
+        printf("\n");
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -53,7 +69,7 @@ int main(int argc, char **argv)
 		printf("Veuillez choisir une acton :\n");
 		printf("1 - Quitter le programme : \n");
 		printf("2 -  Initialiser le jeu': \n");
-		printf("3 -  Charger l'automate depuis un fichier: \n");
+		printf("3 -  Affichier l'automate initial' \n");
 		printf("4 -  Creer et/ou mo,difier les cellule de l'automate'\n");
 		printf("5 - Parametrer le recadrage de l'affichage (x0, h, y0, v) :\n");
 		printf("6 - calculer l'automate jusqu'a un temps (t) donne sans affichage:\n");
@@ -67,7 +83,7 @@ int main(int argc, char **argv)
 			{
 				case 1 : printf ("------Vous avez quitte le programme !! ------ \n");loop =0;break;
 				case 2 : init_tab(fenetre, TAILLE_MATRICE);;break;
-				case 3 : printf("Quel jour recherchez vous ? ");break;
+				case 3 : Affichage_matrice(fenetre,TAILLE_MATRICE);break;
 				case 4 : printf("Depuis quel jour voulez vous calculez le nombre de mouvement ? ");break;
 				case 5 : printf("+++ Fonction en cours de developement +++ \n");break;
 				case 6 : break;
