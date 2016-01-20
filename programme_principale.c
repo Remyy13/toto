@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#define COLOR_RED     "\x1b[31m"
-#define COLOR_GREEN   "\x1b[32m"
+#define COLOR_RED     "\x1b[41m"
+#define COLOR_GREEN   "\x1b[42m"
 #define COLOR_RESET   "\x1b[0m"
-#define TAILLE_MATRICE 20
+#define TAILLE_MATRICE 5
 //void Init_matrice(int matrice[][TAILLE_MATRICE],int TAILLE_MATRICE);
 //int RandomNumber(int,int);
 
@@ -48,11 +48,11 @@ void Affichage_matrice(int tableau[][TAILLE_MATRICE], int taille)
         for (int j=0; j<TAILLE_MATRICE; j++)
         {
             if (tableau[i][j] == 0)
-                printf(COLOR_GREEN "1  " COLOR_RESET);
-            else printf(COLOR_RED "#  " COLOR_RESET);
+                printf(COLOR_GREEN "  " COLOR_RESET" ");
+            else printf(COLOR_RED "  " COLOR_RESET" ");
         }
          
-        printf("\n");
+        printf("\n\n");
     }
 }
 
