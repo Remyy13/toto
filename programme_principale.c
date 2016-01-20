@@ -9,6 +9,31 @@
 //int RandomNumber(int,int);
 
 
+
+/*void allocation_matrice()
+{
+	int Longueur,Largeur;
+	int i;
+	int** mat=NULL;
+	printf("Longueur :");
+	scanf("%d",&Longueur);
+	printf("Largeur :");
+	scanf("%d",&Largeur);
+	mat = malloc(sizeof(int)*Longueur);
+	    for (i = 0; i < Longueur; i++) 
+	    {
+        mat[i] = malloc(sizeof(char) * Largeur); // Allocation de la deuxième dimension pour chaque nom : prenoms[i][100]
+        mat[i]=5;
+		}
+		for (i = 0; i < Longueur; i++)
+        printf("\nprénom %d : %d ", i, mat[i]);
+	}
+
+
+*/
+
+
+
  
 // Selection d'un nombre au hasard entre Min et Max.
  
@@ -60,7 +85,7 @@ int main(int argc, char **argv)
 {
 	int choix,loop=1;
     int fenetre[TAILLE_MATRICE][TAILLE_MATRICE];
-     
+    
 
 	while (loop==1)
 	{
@@ -84,7 +109,7 @@ int main(int argc, char **argv)
 				case 1 : printf ("------Vous avez quitte le programme !! ------ \n");loop =0;break;
 				case 2 : init_tab(fenetre, TAILLE_MATRICE);;break;
 				case 3 : Affichage_matrice(fenetre,TAILLE_MATRICE);break;
-				case 4 : printf("Depuis quel jour voulez vous calculez le nombre de mouvement ? ");break;
+				case 4 : allocation_matrice();break;
 				case 5 : printf("+++ Fonction en cours de developement +++ \n");break;
 				case 6 : break;
 				case 7 : break;
