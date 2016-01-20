@@ -5,6 +5,7 @@
 #define COLOR_GREEN   "\x1b[42m"
 #define COLOR_RESET   "\x1b[0m"
 #define TAILLE_MATRICE 5
+#define TAILLE_MATRICE_INT 4
 //void Init_matrice(int matrice[][TAILLE_MATRICE],int TAILLE_MATRICE);
 //int RandomNumber(int,int);
 
@@ -79,6 +80,43 @@ void Affichage_matrice(int tableau[][TAILLE_MATRICE], int taille)
          
         printf("\n\n");
     }
+}
+
+
+/* Calcul du nombre de voisins vivants */
+int nombre_voisins (int fenetre[][TAILLE_MATRICE], int ligne, int colonne)
+{
+   int compte=0; // compteur de cellules
+   int i,j;
+   for (i=ligne-1;i<=ligne+1;i++)
+      for(j=colonne-1;j<=colonne+1;j++)
+         compte=compte+fenetre[i][j];
+
+         /* Puis on retire celle du milieu */
+         compte -= fenetre[ligne][colonne];
+         return compte;
+	 }
+
+void mise_a_jour(int fenetre[ ][TAILLE_MATRICE ])
+{
+   int i,j;
+   int nbr_voisins;
+   int fenetre_densite[TAILLE_MATRICE_INT][TAILLE_MATRICE];
+   // matrice qui comptabilise le nombre de voisins case par case
+   for(i=0; i< TAILLE_MATRICE_INT; i++)
+         for(j=0; j< TAILLE_MATRICE_INT; j++)
+            fenetre_densite[i][j]=nombre_voisins(fenetre,i+1,j+1);
+      // i+1 et j+1 car on passe de la MATRICE_INT à la MATRICE
+
+   for(i=0; i< TAILLE_MATRICE_INT; i++)
+      for(j=0; j< TAILLE_MATRICE_INT; j++)
+      {
+            nbr_voisins=fenetre_densite[i][j];
+            if(nbr_voisins==2)
+                  fenetre[i+1][j+1]=1;
+            else if (nbr_voisins==0 || nbr_voisins==4)
+                  fenetre[i+1][j+1]=0;
+		}
 }
 
 int main(int argc, char **argv)
