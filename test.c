@@ -6,7 +6,12 @@
 #define BACK_GREEN "\x1B[42m"
 #define RESET "\033[0m"
 #include <unistd.h>
-
+int ReturnRandomNumber (int Min, int Max);
+void Initialisation(int damier[][TAILLE],int taille);
+int NombreDeVoisins(int damier[][TAILLE],int ligne, int colonne);
+void NextGeneration(int damier[][TAILLE]);
+void automate(int Cycle ,int damier[][TAILLE], int taille);
+void Save_automate(FILE* file_automate, int damier[][TAILLE], int taille);
  
 // Selection d'un nombre au hasard entre Min et Max.
  
@@ -27,11 +32,15 @@ void Initialisation(int damier[][TAILLE],int taille)
 // cellule vivante = 1
 // cellule morte = 0
      
-    srand(time(NULL));
+    srand(time(NULL)); 
      
-    for ( i=0; i<taille; i++)
-        for ( j=0; j<taille; j++)
+    for ( i=0; i < taille; i++)
+    {
+        for ( j=0; j < taille; j++)
+        {
             damier[i][j] = ReturnRandomNumber(0,1);
+		}
+	}
      
 }
 
@@ -41,12 +50,13 @@ void Initialisation(int damier[][TAILLE],int taille)
 void Affichage(int tableau[][TAILLE], int taille)
 {
 int i,j;
+char *c = "\x1B[42m";
 
         for ( i=0; i<TAILLE; i++)
         {
                 for (j=0; j<TAILLE; j++)
                 {
-                        tableau[i][j]?printf(BACK_GREEN"  "RESET" "):printf(BACK_RED"  "RESET" ");
+                        tableau[i][j] ? printf("%s""  "RESET" ",c) : printf(BACK_RED"  "RESET" ");
                 }
         printf("\n\n");
         }
@@ -64,12 +74,12 @@ int NombreDeVoisins(int damier[][TAILLE],int ligne, int colonne)
     int ligneEnCour, colonneEnCour;
     int cellule = damier[ligne][colonne];
       
-    for ( i=(ligne-1);i<=(ligne+1); i++)               
+    for ( i = (ligne - 1) ; i <= (ligne+1); i++)               
     {
-        for ( j=(colonne-1); j<=(colonne+1); j++)
+        for ( j=(colonne - 1) ; j<=(colonne + 1); j++)
         {
-            ligneEnCour = (i+TAILLE)%TAILLE;          // On revient sur les bords opposés (Matrice 'torique')
-            colonneEnCour = (j+TAILLE)%TAILLE;
+            ligneEnCour = (i + TAILLE) % TAILLE;          // On revient sur les bords opposés (Matrice 'torique')
+            colonneEnCour = (j + TAILLE) % TAILLE;
                  
             if (damier[ligneEnCour][colonneEnCour] == 1)
                 voisinsVivants++;
@@ -88,13 +98,12 @@ int NombreDeVoisins(int damier[][TAILLE],int ligne, int colonne)
 void NextGeneration(int damier[][TAILLE])
 {
     int damierTampon[TAILLE][TAILLE];
-     int i,j,voisins,cellule;
-    for ( i=0; i<TAILLE; i++)
+     int i,j,voisins;
+    for ( i=0; i < TAILLE; i++)
     {
-        for ( j=0; j<TAILLE; j++)
+        for ( j=0; j < TAILLE; j++)
         {
-             voisins = NombreDeVoisins(damier,i,j);
-             cellule = damier[i][j];
+             voisins = NombreDeVoisins(damier, i, j);
             if ((voisins < 2)||(voisins > 3))
             {
                     damierTampon[i][j] = 0;
@@ -112,58 +121,111 @@ void NextGeneration(int damier[][TAILLE])
         }
     }
     for ( i=0; i<TAILLE; i++)
-        for ( j=0; j<TAILLE; j++)
+        for ( j=0; j < TAILLE; j++)
             damier[i][j] = damierTampon[i][j];
 }
 
-void automate(int Cycle ,int damier[][TAILLE], int taille)
+void automate(int Cycle, int damier[][TAILLE], int taille)
 {
 	int i;
-	    for (i=0; i<Cycle; i++)
+	for (i=0; i < Cycle; i++)
     {
         NextGeneration(damier);
         system("clear");
         Affichage(damier,TAILLE);
-        usleep(100000);
+        usleep(500000);
         printf("\n\n");
     }
 	}
-int main()
+
+
+void Save_automate(FILE* file_automate, int damier[][TAILLE], int taille)
 {
+	int i = 0 ,j = 0;
+	file_automate = fopen("automate.txt", "a+");
+	if((file_automate == NULL))
+	{
+    printf("Impossible d'ouvrir le fichier'.\n");
+	}
+	else
+	{
+	    for ( i=0; i<TAILLE; i++)
+		{
+			fwrite(damier[TAILLE],sizeof(int),taille,file_automate);
+			for ( j=0; j<TAILLE; j++)
+			{
+				fprintf (file_automate, "%d", damier[i][j]);; 
+				
+			}
+			fprintf (file_automate,"\n");
+		}
+	fclose(file_automate);
+	}
+}
+
+/*void Read_automate(FILE* file_automate, int damier[][TAILLE], int taille)
+{
+	int i = 0 ,j = 0;
+	file_automate = fopen("automate.txt", "r");
+	if((file_automate == NULL))
+	{
+    printf("Impossible d'ouvrir le fichier'.\n");
+	}
+	else
+	{
+	    for ( i=0; i<TAILLE; i++)
+		{
+			fwrite(damier[TAILLE],sizeof(int),taille,file_automate);
+			for ( j=0; j<TAILLE; j++)
+			{
+				fscanf(file_automate, "%d", damier[i][j]);; 
+				
+			}
+			fprintf (file_automate,"\n");
+		}
+	fclose(file_automate);
+	}
+}*/
+int main(int argc, char *argv[])
+{
+	FILE* file_automate = NULL;
     int damier[TAILLE][TAILLE];
     int Cycle;
     int loop=1, choix;
         system("clear");
     	while (loop==1)
 	{
-		printf ("\n--------------- MENU ---------------\n");
+		printf ("\n##################################\n#              MENU              #\n##################################\nn");
 		printf("Veuillez choisir une acton :\n");
 		printf("1 - Quitter le programme : \n");
 		printf("2 - Choix du nombre de cycle  \n");
 		printf("3 - Initialiser le jeu:\n");
 		printf("4 - Lancer le jeu :\n");
-		printf("5 - Allocation dynamique (in progress");
+		printf("5 - Allocation dynamique (in progress)\n");
+		printf("6 - Afficher la derniere iteration : \n");
+		printf("7 - Sauvegarder l'automate : \n");
+		printf("8 - Charger l'automate : (in progress)\n");
 		printf("selectionnez un chiffre entre 0 et 8:\n");
 		scanf("%d",&choix);
 			if ((choix >= 1) && choix <= 9)
 			{
-			switch(choix)
-			{
+				switch(choix)
+				{
 				case 1 : printf ("------Vous allez quitter le programme. A bientot!! ------ \n");loop =0; usleep(2000000);break;
 				case 2 : printf("Choisissez le nombre de cycle :");scanf("%d",&Cycle);break;
 				case 3 : Initialisation(damier, TAILLE);break;
 				case 4 : automate(Cycle, damier, TAILLE);break;
 				case 5 : printf("+++ Fonction en cours de developement +++ \n");break;
-				case 6 : break;
-				case 7 : break;
-				case 8 : break;
+				case 6 : Affichage(damier,TAILLE);usleep(5000000);break;
+				case 7 : Save_automate(file_automate, damier, TAILLE);break;
+				case 8 : //Read_automate(file_automate, damier, TAILLE);break;
 				default:break;
-			};
+				};
+			}
+			else
+			{
+				printf("\n##################################\nVous avez mal fait votre choix !!\n##################################\n") ;usleep(2000000);
+			}
+		 system(" clear ") ;
 		}
-		else
-		{
-			printf("\n##################################\nVous avez mal fait votre choix !!\n##################################\n");
-		}
-		 system("clear");
-		}
-}
+	}
