@@ -133,31 +133,26 @@ int main()
     int damier[TAILLE][TAILLE];
     int Cycle;
     int loop=1, choix;
-    printf("Choisissez le nombre de cycle :");
-    scanf("%d",&Cycle);
+        
     	while (loop==1)
 	{
-		printf("toto");
 		printf ("\n--------------- MENU ---------------\n");
 		printf("Veuillez choisir une acton :\n");
 		printf("1 - Quitter le programme : \n");
-		printf("2 -  Initialiser le jeu': \n");
-		printf("3 -  Affichier l'automate initial' \n");
-		printf("4 -  Creer et/ou mo,difier les cellule de l'automate'\n");
-		printf("5 - Parametrer le recadrage de l'affichage (x0, h, y0, v) :\n");
-		printf("6 - calculer l'automate jusqu'a un temps (t) donne sans affichage:\n");
-		printf("7 - Afficher l'automate au temps (t) courant\n");
-		printf("8 - Calculer et afficher entre t0 et t1 (0 < t0 < t1)\n");
+		printf("2 - Choix du nombre de cycle  \n");
+		printf("3 - Initialiser le jeu:\n");
+		printf("4 - Lancer le jeu :\n");
+		printf("5 - Allocation dynamique (in progress");
 		printf("selectionnez un chiffre entre 0 et 8:\n");
 		scanf("%d",&choix);
 			if ((choix >= 1) && choix <= 9)
 			{
 			switch(choix)
 			{
-				case 1 : printf ("------Vous avez quitte le programme !! ------ \n");loop =0;break;
-				case 2 : Initialisation(damier, TAILLE);break;
-				case 3 : automate(Cycle, damier, TAILLE);break;
-				case 4 :// allocation_matrice();break;
+				case 1 : printf ("------Vous allez quitter le programme. A bientot!! ------ \n");loop =0; usleep(2000000);break;
+				case 2 : printf("Choisissez le nombre de cycle :");scanf("%d",&Cycle);break;
+				case 3 : Initialisation(damier, TAILLE);break;
+				case 4 : automate(Cycle, damier, TAILLE);break;
 				case 5 : printf("+++ Fonction en cours de developement +++ \n");break;
 				case 6 : break;
 				case 7 : break;
@@ -169,5 +164,6 @@ int main()
 		{
 			printf("\n##################################\nVous avez mal fait votre choix !!\n##################################\n");
 		}
+		 system("clear");
 		}
 }
