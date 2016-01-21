@@ -1,0 +1,42 @@
+
+void print (int fenetre[][TAILLE_MATRICE])
+{
+	int	i, j;
+
+	for (j=0; j<TAILLE_MATRICE; j++)
+	{
+
+		for (i=0; i<TAILLE_MATRICE; i++)
+		{
+			printf ("%c", fenetre[i][j] ? 'x' : ' ');
+		}
+
+		printf ("\n");
+	}
+}
+
+/* lis un fichier*/
+
+void read_file (int fenetre[][TAILLE_MATRICE], char *name)
+{
+	FILE	*f;
+	int	i, j;
+	char	s[100];
+
+	f = fopen (name, "r");
+	for (j=0; j<TAILLE_MATRICE; j++)
+	{
+
+		/* obtient un caractère*/
+
+		fgets (s, 100, f);
+
+		/* copie le caractère */
+
+		for (i=0; i<TAILLE_MATRICE; i++)
+		{
+			fenetre[i][j] = s[i] == 'x';
+		}
+	}
+	fclose (f);
+}
