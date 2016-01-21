@@ -133,7 +133,7 @@ int main()
     int damier[TAILLE][TAILLE];
     int Cycle;
     int loop=1, choix;
-        
+        system("clear");
     	while (loop==1)
 	{
 		printf ("\n--------------- MENU ---------------\n");
